@@ -1,47 +1,57 @@
-import React from 'react';
+import React from 'react'
 
-const Meeting = ({
-    attendees,
-    time,
-    agenda,
-    outcome,
-    title = "Meeting Update",
-}: {
-    attendees: string;
-    time: string;
-    agenda: string;
-    outcome: string;
-    title?: string;
-}) => {
-    return (
-        <div className="my-6 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="flex items-center mb-4">
-                <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
-                    {title}
-                </h3>
-                <div className="ml-auto text-sm text-gray-400">{time}</div>
-            </div>
+interface MeetingProps {
+  children: React.ReactNode
+  title?: string
+}
 
-            <div className="space-y-3 text-gray-100">
-                <div className="flex items-start">
-                    <span className="flex-shrink-0 w-24 text-gray-400">Attendees:</span>
-                    <span className="font-medium">{attendees}</span>
-                </div>
+const Meeting = ({ children, title = 'Meeting Update' }: MeetingProps) => {
+  const details = String(children)
+    .split(',')
+    .map((item) => item.trim())
+  const [attendees, time, agenda, outcome] = details
 
-                <div className="flex items-start">
-                    <span className="flex-shrink-0 w-24 text-gray-400">Agenda:</span>
-                    <span className="font-medium">{agenda}</span>
-                </div>
-
-                <div className="flex items-start">
-                    <span className="flex-shrink-0 w-24 text-gray-400">Outcome:</span>
-                    <div className="font-medium px-3 py-1 bg-gray-700 rounded-lg">
-                        {outcome}
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="my-6 overflow-hidden">
+      <div className="rounded-xl border border-gray-700/50 bg-gradient-to-r from-gray-800 to-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+        {/* Header */}
+        <div className="mb-6 flex items-center justify-between border-b border-gray-700/50 pb-4">
+          <h3 className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-xl font-bold text-transparent">
+            {title}
+          </h3>
+          <span className="rounded-full bg-gray-700/50 px-3 py-1 text-sm text-gray-300">
+            {time || 'N/A'}
+          </span>
         </div>
-    );
-};
 
-export default Meeting;
+        {/* Content */}
+        <div className="space-y-4 text-gray-300">
+          <div className="group flex items-start">
+            <span className="w-24 flex-shrink-0 text-gray-500 transition-colors group-hover:text-teal-400">
+              Attendees:
+            </span>
+            <span className="flex-grow font-medium">{attendees || 'N/A'}</span>
+          </div>
+
+          <div className="group flex items-start">
+            <span className="w-24 flex-shrink-0 text-gray-500 transition-colors group-hover:text-teal-400">
+              Agenda:
+            </span>
+            <span className="flex-grow font-medium">{agenda || 'N/A'}</span>
+          </div>
+
+          <div className="group flex items-start">
+            <span className="w-24 flex-shrink-0 text-gray-500 transition-colors group-hover:text-teal-400">
+              Outcome:
+            </span>
+            <span className="flex-grow rounded-lg bg-gray-700/50 px-3 py-1 font-medium">
+              {outcome || 'N/A'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Meeting
