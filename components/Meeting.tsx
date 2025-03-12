@@ -1,47 +1,30 @@
-import React from 'react';
+import React from 'react'
 
-const Meeting = ({
-    attendees,
-    time,
-    agenda,
-    outcome,
-    title = "Meeting Update",
-}: {
-    attendees: string;
-    time: string;
-    agenda: string;
-    outcome: string;
-    title?: string;
-}) => {
-    return (
-        <div className="my-6 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="flex items-center mb-4">
-                <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
-                    {title}
-                </h3>
-                <div className="ml-auto text-sm text-gray-400">{time}</div>
-            </div>
+const Meeting = ({ children }: { children: React.ReactNode }) => {
+  const details = String(children)
+    .split(',')
+    .map((item) => item.trim())
+  const [attendees, time, agenda, outcome] = details
 
-            <div className="space-y-3 text-gray-100">
-                <div className="flex items-start">
-                    <span className="flex-shrink-0 w-24 text-gray-400">Attendees:</span>
-                    <span className="font-medium">{attendees}</span>
-                </div>
+  return (
+    <div className="my-6">
+      <h3 className="mb-2 text-xl font-bold text-teal-600">Meeting Update</h3>
+      <div className="text-gray-700">
+        <p>
+          <span className="font-semibold">Attendees:</span> {attendees || 'N/A'}
+        </p>
+        <p>
+          <span className="font-semibold">Time:</span> {time || 'N/A'}
+        </p>
+        <p>
+          <span className="font-semibold">Agenda:</span> {agenda || 'N/A'}
+        </p>
+        <p>
+          <span className="font-semibold">Outcome:</span> {outcome || 'N/A'}
+        </p>
+      </div>
+    </div>
+  )
+}
 
-                <div className="flex items-start">
-                    <span className="flex-shrink-0 w-24 text-gray-400">Agenda:</span>
-                    <span className="font-medium">{agenda}</span>
-                </div>
-
-                <div className="flex items-start">
-                    <span className="flex-shrink-0 w-24 text-gray-400">Outcome:</span>
-                    <div className="font-medium px-3 py-1 bg-gray-700 rounded-lg">
-                        {outcome}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default Meeting;
+export default Meeting

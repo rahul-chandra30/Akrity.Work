@@ -1,10 +1,21 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
 
-const MAX_DISPLAY = 5
+const MAX_DISPLAY = 6
+
+const formatDate = (date, locale = 'en-US') => {
+  return new Date(date).toLocaleDateString(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+// Placeholder NewsletterForm
+const NewsletterForm = () => (
+  <div className="text-gray-500 dark:text-gray-400">Newsletter coming soon!</div>
+)
 
 export default function Home({ posts }) {
   return (
@@ -59,7 +70,7 @@ export default function Home({ posts }) {
                           className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                           aria-label={`Read more: "${title}"`}
                         >
-                          Read more &rarr;
+                          Read more →
                         </Link>
                       </div>
                     </div>
@@ -77,7 +88,7 @@ export default function Home({ posts }) {
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="All posts"
           >
-            All Posts &rarr;
+            All Posts →
           </Link>
         </div>
       )}
