@@ -16,6 +16,15 @@ const ContentSecurityPolicy = `
   frame-src giscus.app
 `
 
+const withMDX = require('@next/mdx')();
+
+module.exports = withMDX({
+  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+  images: {
+    domains: ['images.unsplash.com', 'source.unsplash.com'],
+  },
+});
+
 const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
   {
